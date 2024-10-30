@@ -1,0 +1,47 @@
+struct Point {
+    x: i32,
+    y: i32,
+}
+/*
+    let origin: Point = Point(x: 0, y: 0);
+*/
+
+struct Point2(i32, i32);
+/*
+    let origin2: Point2 = (0,0);
+*/
+
+enum Direction {
+    left,
+    right,
+    up,
+    down,
+}
+/*
+    let UP: Direction = Direction::up;
+*/
+
+enum OptionalI32 {
+    AnI32(i32),
+    Nothing,
+}
+/*
+    let two: OptionalI32 = OptionalI32::AnI32(2);
+    let nothing = OpthionalI32::Nothing;
+*/
+
+
+fn main() {
+    let arri: [i32;4] = [1, 2, 3, 4]; //静态数组
+    let mut vectors: Vec<i32> = vec![1, 2, 3, 4]; //动态数组
+    let index: &[i32] = &vectors; //引用指针
+    let x: (i32, &str, f64) = (1, "hello", 3.14); //tuples
+
+
+
+    println!("{:?}", index);//[1, 2, 3, 4]
+    println!("{:?}", arri); //[1, 2, 3, 4]
+    println!("{}", x.1);    //hello
+
+    println!("Hello, world!");
+}
