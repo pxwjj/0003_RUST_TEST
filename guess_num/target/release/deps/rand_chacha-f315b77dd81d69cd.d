@@ -1,0 +1,9 @@
+/home/xiebro/0003_RUST_TEST/guess_num/target/release/deps/librand_chacha-f315b77dd81d69cd.rmeta: /home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/lib.rs /home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/chacha.rs /home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/guts.rs
+
+/home/xiebro/0003_RUST_TEST/guess_num/target/release/deps/librand_chacha-f315b77dd81d69cd.rlib: /home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/lib.rs /home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/chacha.rs /home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/guts.rs
+
+/home/xiebro/0003_RUST_TEST/guess_num/target/release/deps/rand_chacha-f315b77dd81d69cd.d: /home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/lib.rs /home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/chacha.rs /home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/guts.rs
+
+/home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/lib.rs:
+/home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/chacha.rs:
+/home/xiebro/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_chacha-0.3.1/src/guts.rs:
