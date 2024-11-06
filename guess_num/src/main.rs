@@ -1,35 +1,43 @@
-use std::io;
 use rand::Rng;
-use std::cmp::Ordering;
+use std::{io,cmp::Ordering};
 
-fn main() {
-    // 生成随机数
-    let rand_num: i32 = rand::thread_rng().gen_range(1..=100);
-    
+fn main (){
+    print!("please input a number between 0 to 100:\n");
+
+    // 1. rand num
+    let r_num: u32 = rand::thread_rng().gen_range(0..101);
+
+    // 2. loop 
     loop {
-        // 1、输入字符串
-        println!("input:");
-        let mut in_buf: String = String::new();
+        // 2.1 write num
+        let mut w_num: String = String::new();
         io::stdin()
-                .read_line(&mut in_buf)
-                .expect("err");
-    
-        // 2、将字符串处理，变为数字
-        //  2.1 如果转换失败，重新输入
-        let in_buf:i32 = match in_buf.trim().parse() {
+            .read_line(&mut w_num)
+            .expect("err");
+
+        // 2.2 string to num , err or ok
+        let w_num: u32 = match w_num.trim().parse() {
             Ok(num) => num,
-            Err(_) => continue,
+            Err(_) => {
+                println!("input isn`t num string,reinput");
+                continue;
+            },
         };
-        
-        // 3、比较大小，相等则成功
-        match rand_num.cmp(&in_buf) {
-            Ordering::Less => println!("再小点"),
-            Ordering::Greater => println!("再猜大点"),
+
+        // 3.cmp
+        match w_num.cmp(&r_num) {
             Ordering::Equal => {
-                println!("you win!");
+                println!("you win!!!");
                 break;
             },
-        }
+            Ordering::Greater => {
+                println!("reinput small:");
+                continue;
+            },
+            Ordering::Less => {
+                println!("reinput big:");
+                continue;
+            },
+        };
     }
 }
-
