@@ -1,9 +1,6 @@
-
 fn main() {
-    println!("Hello, world!");
-    
     {
-        let mut s: String = String::from("hello"); // 从此处起 s有效
+        let s: String = String::from("hello"); // 从此处起 s有效
         
         // 使用s 
     }   
@@ -30,4 +27,23 @@ fn main() {
 
         println!("{s1} {s2}");
     } // 会drop s1 和 s2
+
+    {
+        // 所有权与函数
+        let s1: String = String::from("value");
+        test_ownership(s1); // s1的所有权给something , 调用完此函数之后，不能再使用s1
+        // println!("s1 = {s1}"); // 报错
+
+        let a: u32 = 1;
+        test_u32_cope(a); // 因为u32为cope类型，所以，a还能使用。并不是把a的所有权交给num。
+        println!("a = {a}");
+    }
+}
+
+fn test_ownership(something: String){
+    println!("something = {something}");
+} // 调用drop somtthing 占用的内存被释放
+
+fn test_u32_cope(num: u32){
+    println!("num = {num}");
 }
