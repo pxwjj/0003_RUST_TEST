@@ -735,6 +735,141 @@ fn main() {
 10. use关键字
     - 参照第八点，使用类型的时候，太长了，使用use后，就可以直接使用 study类型
 
-#### 举例
+#### 举例并说明相关知识点
 
-创建一个库crate `cargo new --lib school` 学校库->里面有模块对应不同年级->年级里面有模块对应不容班级
+创建一个库crate `cargo new --lib all` 
+
+- 绝对路径
+- 相对路径
+- 使用pub
+  - **模块公有并不会使内容公有** 因此该函数也需要pub关键字
+  - 结构体也一样
+    - 将结构体设置为公有，其成员也需要设置公有才可以访问
+  - enum则不同
+    - 将enum设置为公有，其成员不需要设置pub关键字就可以访问
+- 使用super
+  - 在子模块中使用
+  - 可以让子模块使用**父模块（仅限父模块，爷爷模块可不行）**中的内容，而不用从crate开始写模块路径
+- 使用use 
+  - **注意，标准库对你的包来说，也是一个外部crate**
+
+```rust
+mod people {
+    fn have_name(){}
+
+    pub mod student {
+        pub fn get_student_name(){}
+        fn get_student_age(){}
+        mod daxue {
+            fn get_daxue_name(){
+                // use crate::people::student;
+                // student::get_student_age();
+
+                super::get_student_name(); // 通过super 使用父模块中的接口
+            }
+        }
+    }
+
+    mod worker {
+        fn get_worker_name(){
+            super::have_name(); // 通过super 使用父模块中的接口
+        }
+        fn get_worker_age(){}
+    }
+}
+
+/*
+    crate
+    |
+    | - - - people
+            |
+            | - - - pub student
+            |       |
+            |       | - - - pub get_student_name
+            |       | - - - get_student_age
+            |       | - - - daxue
+            |               | 
+            |               | - - - get_daxue_name
+            |
+            | - - - worker
+                    |
+                    | - - - get_worker_name
+                    | - - - get_worker_age
+*/
+
+pub fn get(){
+    // 绝对路径
+    crate::people::student::get_student_name();
+    // 相对路径
+    people::student::get_student_name();
+}
+```
+
+```rust
+mod back_of_house{
+    pub struct Breakfast{
+        pub toast: String,
+        seasonal_fruit: String,
+    }
+
+    impl Breakfast {
+        pub fn summer(toast: String) -> Breakfast {
+            Breakfast {
+                toast: toast,
+                seasonal_fruit: String::from("apple"), // 在模块中可以设置 当前模块私有字段的值
+            }
+        }
+    }
+}
+
+
+fn eat_at_restaurant(){
+
+    let mut meal = back_of_house::Breakfast::summer(String::from("Rye")); // 将结构体变为pub，对应的summer变为pub
+
+    meal.toast = String::from("Wheat"); // 更改结构体中参数 将结构体成员变为 pub -- 结构体共有不是说结构体所有成员都共有
+
+    // meal.seasonal_fruit =  String::from("banana");// 不能编译，因为seasonal_fruit 不是共有成员
+}
+```
+
+### 16.2 将模块拆成多个文件
+
+- 把 back_of_house 大括号中的内容移到 back_of_house.rs文件中。
+
+`lib.rs:`
+
+```rust
+mod back_of_house;
+
+fn eat_at_restaurant(){
+
+    let mut meal = back_of_house::Breakfast::summer(String::from("Rye")); // 将结构体变为pub，对应的summer变为pub
+
+    meal.toast = String::from("Wheat"); // 更改结构体中参数 将结构体成员变为 pub -- 结构体共有不是说结构体所有成员都共有
+
+    // meal.seasonal_fruit =  String::from("banana");// 不能编译，因为seasonal_fruit 不是共有成员
+}
+```
+
+`back_of_house.rs:`
+
+```rust
+pub struct Breakfast{
+    pub toast: String,
+    seasonal_fruit: String,
+}
+
+impl Breakfast {
+    pub fn summer(toast: String) -> Breakfast {
+        Breakfast {
+            toast: toast,
+            seasonal_fruit: String::from("apple"), // 在模块中可以设置 当前模块私有字段的值
+        }
+    }
+}
+```
+
+- 如果back_of_house还有子模块的话，那么就创建一个back_of_house文件夹，在文件夹下再创建一个子模块名称对应的.rs文件。
+
+<img src="F:\学习笔记\rust学习笔记\thebook学习.assets\image-20241118134411557.png" alt="image-20241118134411557" style="zoom: 50%;" />
